@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { add, subtract, multiply, divide, power, squareRoot } = require('../src/index');
+const { add, subtract, multiply, divide, power, squareRoot, modulo, absolute } = require('../src/index');
 
 // Test add
 assert.strictEqual(add(2, 3), 5, 'add(2, 3) should equal 5');
@@ -29,5 +29,16 @@ assert.strictEqual(squareRoot(9), 3, 'squareRoot(9) should equal 3');
 assert.strictEqual(squareRoot(0), 0, 'squareRoot(0) should equal 0');
 assert.strictEqual(squareRoot(4), 2, 'squareRoot(4) should equal 2');
 assert.throws(() => squareRoot(-1), /Cannot take square root of negative number/, 'squareRoot(-1) should throw');
+
+// Test modulo
+assert.strictEqual(modulo(10, 3), 1, 'modulo(10, 3) should equal 1');
+assert.strictEqual(modulo(10, 2), 0, 'modulo(10, 2) should equal 0');
+assert.strictEqual(modulo(-7, 3), -1, 'modulo(-7, 3) should equal -1');
+assert.throws(() => modulo(1, 0), /Division by zero/, 'modulo(1, 0) should throw');
+
+// Test absolute
+assert.strictEqual(absolute(-5), 5, 'absolute(-5) should equal 5');
+assert.strictEqual(absolute(5), 5, 'absolute(5) should equal 5');
+assert.strictEqual(absolute(0), 0, 'absolute(0) should equal 0');
 
 console.log('All tests passed ✅');

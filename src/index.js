@@ -28,4 +28,13 @@ function squareRoot(n) {
   return Math.sqrt(n);
 }
 
-module.exports = { add, subtract, multiply, divide, power, squareRoot };
+function modulo(a, b) {
+  if (b === 0) throw new Error('Division by zero');
+  return a % b;
+}
+
+function absolute(n) {
+  return Math.abs(n);
+}
+
+module.exports = { add, subtract, multiply, divide, power, squareRoot, modulo, absolute };
