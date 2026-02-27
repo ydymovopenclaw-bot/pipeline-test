@@ -1,0 +1,10 @@
+{
+  "name": "pipeline-test",
+  "version": "1.0.0",
+  "description": "Pipeline end-to-end test",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node test/index.test.js",
+    "lint": "echo 'no linter configured'"
+  }
+}
