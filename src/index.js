@@ -28,4 +28,10 @@ function squareRoot(n) {
   return Math.sqrt(n);
 }
 
-module.exports = { add, subtract, multiply, divide, power, squareRoot };
+function factorial(n) {
+  if (!Number.isInteger(n) || n < 0) throw new Error('Input must be a non-negative integer');
+  if (n === 0) return 1;
+  return n * factorial(n - 1);
+}
+
+module.exports = { add, subtract, multiply, divide, power, squareRoot, factorial };
