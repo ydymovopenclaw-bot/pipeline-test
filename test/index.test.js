@@ -28,6 +28,6 @@ assert.strictEqual(power(3, 2), 9, 'power(3, 2) should equal 9');
 assert.strictEqual(squareRoot(9), 3, 'squareRoot(9) should equal 3');
 assert.strictEqual(squareRoot(0), 0, 'squareRoot(0) should equal 0');
 assert.strictEqual(squareRoot(4), 2, 'squareRoot(4) should equal 2');
-assert.throws(() => squareRoot(-1), /Cannot take square root of negative number/, 'squareRoot(-1) should throw');
+assert.throws(() => squareRoot(-1), /Input must be non-negative/, 'squareRoot(-1) should throw');
 
 console.log('All tests passed ✅');

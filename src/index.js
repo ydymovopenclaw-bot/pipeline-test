@@ -24,7 +24,7 @@ function power(base, exponent) {
 }
 
 function squareRoot(n) {
-  if (n < 0) throw new Error('Cannot take square root of negative number');
+  if (n < 0) throw new Error('Input must be non-negative');
   return Math.sqrt(n);
 }
 
