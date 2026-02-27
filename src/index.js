@@ -19,4 +19,13 @@ function divide(a, b) {
   return a / b;
 }
 
-module.exports = { add, subtract, multiply, divide };
+function power(base, exponent) {
+  return Math.pow(base, exponent);
+}
+
+function squareRoot(n) {
+  if (n < 0) throw new Error('Cannot take square root of negative number');
+  return Math.sqrt(n);
+}
+
+module.exports = { add, subtract, multiply, divide, power, squareRoot };
