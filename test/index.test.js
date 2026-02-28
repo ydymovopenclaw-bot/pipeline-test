@@ -51,3 +51,8 @@ assert.strictEqual(toKebabCase(''), '', 'toKebabCase("") should equal ""');
 assert.strictEqual(toKebabCase('a'), 'a', 'toKebabCase single char');
 
 console.log('All tests passed ✅');
+
+// Test brokenAdd (will fail CI)
+const { brokenAdd } = require('../src/broken');
+assert.strictEqual(brokenAdd(2, 3), 5, 'brokenAdd(2, 3) should equal 5');
+console.log('brokenAdd tests passed ✅');
