@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { add, subtract, multiply, divide, power, squareRoot } = require('../src/index');
+const { add, subtract, multiply, divide, power, squareRoot, toCamelCase, toSnakeCase, toKebabCase } = require('../src/index');
 
 // Test add
 assert.strictEqual(add(2, 3), 5, 'add(2, 3) should equal 5');
@@ -29,5 +29,25 @@ assert.strictEqual(squareRoot(9), 3, 'squareRoot(9) should equal 3');
 assert.strictEqual(squareRoot(0), 0, 'squareRoot(0) should equal 0');
 assert.strictEqual(squareRoot(4), 2, 'squareRoot(4) should equal 2');
 assert.throws(() => squareRoot(-1), /Cannot take square root of negative number/, 'squareRoot(-1) should throw');
+
+// Test toCamelCase
+assert.strictEqual(toCamelCase('hello_world'), 'helloWorld', 'toCamelCase("hello_world") should equal "helloWorld"');
+assert.strictEqual(toCamelCase('hello-world'), 'helloWorld', 'toCamelCase("hello-world") should equal "helloWorld"');
+assert.strictEqual(toCamelCase('helloWorld'), 'helloWorld', 'toCamelCase already camelCase');
+assert.strictEqual(toCamelCase(''), '', 'toCamelCase("") should equal ""');
+assert.strictEqual(toCamelCase('a'), 'a', 'toCamelCase single char');
+
+// Test toSnakeCase
+assert.strictEqual(toSnakeCase('helloWorld'), 'hello_world', 'toSnakeCase("helloWorld") should equal "hello_world"');
+assert.strictEqual(toSnakeCase('hello_world'), 'hello_world', 'toSnakeCase already snake_case');
+assert.strictEqual(toSnakeCase(''), '', 'toSnakeCase("") should equal ""');
+assert.strictEqual(toSnakeCase('a'), 'a', 'toSnakeCase single char');
+
+// Test toKebabCase
+assert.strictEqual(toKebabCase('hello_world'), 'hello-world', 'toKebabCase("hello_world") should equal "hello-world"');
+assert.strictEqual(toKebabCase('helloWorld'), 'hello-world', 'toKebabCase("helloWorld") should equal "hello-world"');
+assert.strictEqual(toKebabCase('hello-world'), 'hello-world', 'toKebabCase already kebab-case');
+assert.strictEqual(toKebabCase(''), '', 'toKebabCase("") should equal ""');
+assert.strictEqual(toKebabCase('a'), 'a', 'toKebabCase single char');
 
 console.log('All tests passed ✅');

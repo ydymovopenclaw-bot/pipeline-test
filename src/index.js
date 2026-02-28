@@ -28,4 +28,25 @@ function squareRoot(n) {
   return Math.sqrt(n);
 }
 
-module.exports = { add, subtract, multiply, divide, power, squareRoot };
+function toCamelCase(str) {
+  if (!str) return str;
+  return str.replace(/[-_](.)/g, (_, char) => char.toUpperCase());
+}
+
+function toSnakeCase(str) {
+  if (!str) return str;
+  return str
+    .replace(/([A-Z])/g, '_$1')
+    .toLowerCase()
+    .replace(/[-](.)/g, '_$1');
+}
+
+function toKebabCase(str) {
+  if (!str) return str;
+  return str
+    .replace(/([A-Z])/g, '-$1')
+    .toLowerCase()
+    .replace(/[_](.)/g, '-$1');
+}
+
+module.exports = { add, subtract, multiply, divide, power, squareRoot, toCamelCase, toSnakeCase, toKebabCase };
