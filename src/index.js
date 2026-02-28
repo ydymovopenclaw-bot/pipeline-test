@@ -49,4 +49,19 @@ function toKebabCase(str) {
     .replace(/[_](.)/g, '-$1');
 }
 
-module.exports = { add, subtract, multiply, divide, power, squareRoot, toCamelCase, toSnakeCase, toKebabCase };
+async function retry(asyncFn, maxAttempts = 3, baseDelay = 100) {
+  let lastError;
+  for (let attempt = 0; attempt < maxAttempts; attempt++) {
+    try {
+      return await asyncFn();
+    } catch (err) {
+      lastError = err;
+      if (attempt < maxAttempts - 1) {
+        await new Promise((resolve) => setTimeout(resolve, baseDelay * Math.pow(2, attempt)));
+      }
+    }
+  }
+  throw lastError;
+}
+
+module.exports = { add, subtract, multiply, divide, power, squareRoot, toCamelCase, toSnakeCase, toKebabCase, retry };
