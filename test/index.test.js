@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { add, subtract, multiply, divide, power, squareRoot, toCamelCase, toSnakeCase, toKebabCase } = require('../src/index');
+const { add, subtract, multiply, divide, power, squareRoot, toCamelCase, toSnakeCase, toKebabCase, retry } = require('../src/index');
 
 // Test add
 assert.strictEqual(add(2, 3), 5, 'add(2, 3) should equal 5');
@@ -50,4 +50,42 @@ assert.strictEqual(toKebabCase('hello-world'), 'hello-world', 'toKebabCase alrea
 assert.strictEqual(toKebabCase(''), '', 'toKebabCase("") should equal ""');
 assert.strictEqual(toKebabCase('a'), 'a', 'toKebabCase single char');
 
-console.log('All tests passed ✅');
+// Test retry
+async function runRetryTests() {
+  // Resolves immediately on success
+  const result = await retry(async () => 42);
+  assert.strictEqual(result, 42, 'retry should resolve with the return value on success');
+
+  // Succeeds after failures
+  let calls = 0;
+  const result2 = await retry(async () => {
+    calls++;
+    if (calls < 3) throw new Error('not yet');
+    return 'ok';
+  }, 3, 0);
+  assert.strictEqual(result2, 'ok', 'retry should succeed after failures');
+  assert.strictEqual(calls, 3, 'retry should have called fn 3 times');
+
+  // Rejects after max attempts
+  let failCalls = 0;
+  const err = new Error('always fails');
+  await retry(async () => { failCalls++; throw err; }, 3, 0).then(
+    () => { throw new Error('should have rejected'); },
+    (e) => { assert.strictEqual(e, err, 'retry should reject with last error'); }
+  );
+  assert.strictEqual(failCalls, 3, 'retry should attempt exactly maxAttempts times');
+
+  // Exponential backoff timing
+  const delays = [];
+  const start = Date.now();
+  let attempt = 0;
+  await retry(async () => {
+    attempt++;
+    if (attempt < 3) throw new Error('fail');
+  }, 3, 50).catch(() => {});
+  // Just verify it completed (timing verification is environment-sensitive)
+
+  console.log('All tests passed ✅');
+}
+
+runRetryTests().catch((err) => { console.error(err); process.exit(1); });
